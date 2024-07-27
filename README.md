@@ -1,95 +1,216 @@
-<h1>
-    <a href="https://www.dio.me/">
-     <img align="center" width="40px" src="https://hermes.digitalinnovation.one/assets/diome/logo-minimized.png"></a>
-    <span> Contribuindo em um Projeto Open Source no GitHub</span>
-</h1>
+# Resumo de comandos do GitHub para o uso no dia-a-dia
 
-Repositório desenvolvido para fins didáticos, com a disponibilização de materiais de apoio e exercício prático para o lab **Contribuindo em um Projeto Open Source no GitHub** da [Digital Innovation One](https://www.dio.me/).
+### Configurações iniciais
 
-[![Link do Lab](https://img.shields.io/badge/▶-000?style=for-the-badge&logo=movie&logoColor=E94D5F)](https://web.dio.me/lab/desafio-de-projeto-contribuindo-em-um-projeto-open-source-no-github/learning/913f26fd-1018-4643-b59a-6356ea77dc2e) 
-[![Link do Lab](https://img.shields.io/badge/Acesse%20o%20Lab%20na%20Plataforma-E94D5F?style=for-the-badge)](https://web.dio.me/lab/desafio-de-projeto-contribuindo-em-um-projeto-open-source-no-github/learning/913f26fd-1018-4643-b59a-6356ea77dc2e)
+```sh
+$ ctrl + l  ou  clear // Limpa Terminal
 
-## Objetivo
-Aprender o básico sobre contribuição no GitHub.
+// Lista todas as configurações
+// global: todos usuários e todos repositórios (/etc/gitconfig)
+// local : específicas para um repositório (.git/config)
+// system: todos usuários (/etc/gitconfig)
+$ git config --list
+$ git config --global user.name "Nome Sobrenome" //	Define usuário
+$ git config --global user.email seuemail@email.com // Define e-mail
+$ git config --global init.defaultBranch main // ao iniciar um repositório, a branch principal será main ao invés de master	
+```
 
-## Ferramentas
-[![GitHub](https://img.shields.io/badge/GitHub-000?style=for-the-badge&logo=github&logoColor=30A3DC)](https://docs.github.com/)
-[![Git](https://img.shields.io/badge/Git-000?style=for-the-badge&logo=git&logoColor=E94D5F)](https://git-scm.com/doc) 
+### Autenticação via Token
 
-## Percurso
-<table>
-  <thead>
-    <tr align="left">
-      <th>Nº</th>
-      <th>Etapas</th>
-    </tr>
-  </thead>
-  <tbody align="left">
-    <tr>
-      <td>01</td>
-      <td>Introdução ao Lab</td>
-    </tr>
-    <tr>
-      <td>02</td>
-      <td>Formas de Contribuir num Projeto Open Source</td>
-    </tr>
-    <tr>
-      <td>03</td>
-      <td>Desenvolvendo e Enviando uma Contribuição</td>  
-    </tr>
-    <tr>
-      <td>04</td>
-      <td>Dicas e Materiais de Apoio</td>    
-    </tr>
-  </tbody>
-</table>
+```sh
+// comando para criar uma cópia local do repositório remoto
+// não possui acesso
+$ git clone https://...
 
----
-## Desafio de Projeto da DIO
-Agora que você já sabe as formas de contribuir em um projeto Open Source, está na hora de colocar em prática o seu conhecimento sobre contribuição no GitHub! <br>
-Para concluir este Desafio de Projeto, basta enviar a **URL do seu "fork" de um projeto Open Source que você contribuiu** para a entrega do desafio na plataforma [DIO](https://www.dio.me/).
+// criar token: github > superior direito foto > settings > Developer settings > Personal access tokens > tokens (classic) > generate new token (classic)
+copiar código
+	
+$ git clone https://... // (na senha colocar o código copiado do token)
+$ git config credential.helper store // (armazena global em /etc/gitconfig ou ~/.git-credentials)
+$ git clone https://...
 
-> [!NOTE]   
-> Por exemplo, a URL https://github.com/falvojr/dio-lab-open-source é o "**fork**" feito pelo usuário do GitHub "`falvojr`" para a contribuição no repositório `dio-lab-open-source`.
+$ git config --global credential.helper
+$ git config --global --show-origin credential.helper  //C:\Users\rafael\.gitconfig
+```
 
-### Contribua com seu Profile README
-Para contribuir neste repositório, uma das formas é através da contribuição no diretório "**community**", criando um Profile README contendo informações sobre você que deseje compartilhar com a comunidade. <br>
-Para isso, você pode inserir: badges indicando suas habilidades; cards com suas estatísticas no GitHub e projetos que criou, colaborou ou que deseje que outras pessoas colaborem. Além disso, você pode inserir também links para seus desafios de projeto e artigos na plataforma da [Digital Innovation One](https://www.dio.me/). <br>
- Inspire-se consultando os exemplos na pasta [`community`](https://github.com/digitalinnovationone/dio-lab-open-source/tree/main/community), confira alguns utilitários na pasta [`utils`](https://github.com/digitalinnovationone/dio-lab-open-source/tree/main/utils) e use sua criatividade para criar o seu 😊💙.
+### Autenticação via ssh
 
-#### Utilitários
+```sh
+// github > superior direito foto > settings > SSH and GPG Keys (documentação com tutorial)
 
-[![Badges](https://img.shields.io/badge/Badges-30A3DC?style=for-the-badge)](https://github.com/digitalinnovationone/dio-lab-open-source/blob/main/utils/badges/badges.md)
-[![Card Stats](https://img.shields.io/badge/Card%20Stats-E94D5F?style=for-the-badge)](https://github.com/digitalinnovationone/dio-lab-open-source/blob/main/utils/cards/github-stats.md)
-[![Badges](https://img.shields.io/badge/Card%20Streak%20States-30A3DC?style=for-the-badge)](https://github.com/digitalinnovationone/dio-lab-open-source/blob/main/utils/cards/github-streak-stats.md)
+$ ls -al ~/.ssh
+$ ssh-keygen -t ed25519 -C "leticiorafael@gmail.com"
+$ eval "$(ssh-agent -s)" //start ssh-agent in the background
+$ ssh-add ~/.ssh/id_ed25519 //adiciona chave ssh privada ao ssh-agent
 
-> [!IMPORTANT]   
-> Confira as instruções antes de enviar a sua contribuição em [CONTRIBUTING.md](https://github.com/digitalinnovationone/dio-lab-open-source/blob/main/CONTRIBUTING.md)
+github > superior direito foto > settings > SSH and GPG Keys > New SSH > colocar chave publica
+cd ~/.ssh
+ls
+cat id_ed25519.pub
 
-### Fórum do Repositório (GitHub Discussions)
-GitHub Discussions é um fórum de comunicação colaborativo dentro do GitHub. Caso tenha dúvidas, você pode abrir uma discussão, dentro de uma categoria apropriada, na aba "Discussions" do repositório do projeto.
+$ git clone git@github.com:... "SSH"
+```
 
-> [!WARNING]  
-> **Atenção:** Antes de criar uma nova discussão, verifique se sua dúvida já foi respondida em discussões anteriores. Use a função de pesquisa para encontrar tópicos relevantes.
+### Criando e clonando repositórios
 
----
+```sh
+mkdir repo-local
+cd repo-local
 
-## Contribua
-[![Star](https://img.shields.io/github/stars/digitalinnovationone/dio-lab-open-source?style=social)](https://github.com/digitalinnovationone/dio-lab-open-source/stargazers)
-[![Forks](https://img.shields.io/github/forks/digitalinnovationone/dio-lab-open-source?style=social)](https://github.com/digitalinnovationone/dio-lab-open-source/forks)
-[![GitHub Issues](https://img.shields.io/github/issues/digitalinnovationone/dio-lab-open-source?style=social)](https://github.com/digitalinnovationone/dio-lab-open-source/issues/)
+// Inicia um repositório git vazio
+// cria .git
+// cria branch inicial sem nenhum commit
+$ git init
+cd .git	//diretório oculto
+ls
 
- Este é um projeto feito para a comunidade, então sinta-se livre para contribuir. Algumas formas de contribuição além do seu exemplo de Profile README, é inserir outros utilitários na pasta [`utils`](https://github.com/digitalinnovationone/dio-lab-open-source/tree/main/utils), ou melhorar a página de pesquisa dos READMEs fazendo modificações nos arquivos da pasta [`docs`](https://github.com/digitalinnovationone/dio-lab-open-source/tree/main/docs). <br>
- Além disso, você também pode contribuir:
- 
-⚠️ Resolvendo, respondendo ou indicando **issues**
+// comando para criar uma cópia local do repositório remoto
+// não é necessário usar o git init
+$ git clone https://...  
+$ git clone https://... repo-clonado //muda o nome do diretório
 
-⭐ Adicionando aos favoritos (**star**) 
+cd repo-clonado
+cd .git
+cat config
+cd ..
+$ git remote add origin https://github.com/... //vincula o diretorio local com o remoto "origin é o local remoto"
 
-### Membros da comunidade que já contribuiram:
-<a href="https://github.com/digitalinnovationone/dio-lab-open-source/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=digitalinnovationone/dio-lab-open-source"/>
-</a>
+cd .git
+cat config //consulta que está vinculado ao diretório remoto
 
-##
-<div align="center">Feito com 💙 por <a href="https://github.com/elidianaandrade">Eli</a>.</div>
+adicional: copiar branch sem ser a main
+$ git clone URL --branch feature-1 --single-branch
+
+$ git push -u origin main //-u associa o branch local ao branch remoto, origin diretório remoto, main branch local enviada ao remoto
+```
+
+### Salvando alterações no repositório local
+
+```sh
+mkdir dio-resumos-git-e-github
+cd dio
+$ git init
+
+$ git status
+touch READNE.md
+$ git status
+
+$ git add README.md //adiciona arquivo específico
+$ git add . //adiciona todos os arquivos que ainda não foram adicionados
+
+$ git commit -m "commit inicial"
+$ git log
+
+mkdir resumos
+$ git status
+touch resumos/resumo-aula1.md //não reconhece diretórios vazios, apenas com arquivos
+echo resumos/ > .gitignore //adiciona pasta no gitignore para ser ignorado
+
+touch aulas/.gitkeep //arquivo para reconhecer o diretorio se não possuir arquivos
+```
+
+### Desfazendo alterações no repositório local
+
+```sh
+rm -rf .git
+
+$ git status
+$ git restore README.MD  //descarta alterações e volta o arquivo para o ultimo commit
+$ git status
+
+$ git commit --amend -m "adiciona aaa..." //altera a mensagem do último commit
+$ git commit --amend //abre editor
+
+$ git log // mostra os commits
+
+//copiar o código do commit ex:4234y2g34ui2y3g4i2uy3g4
+$ git reset --soft 4234y2g34ui2y3g4i2uy3g4 //apaga o commit
+
+$ git reset --mixed código penultimo commit //padrão 
+$ git reset --hard código penultimo commit
+
+$ git reflog //mostra histórico de reset
+```
+
+### Enviando e Baixando alterações com o Repositório Remoto
+
+```sh
+criar repositório no github
+$ git status
+$ git add .
+$ git status
+$ git commit -m "commit local para enviar"
+$ git log //mostra os commits
+$ git remote add origin https://...
+$ git branch -M main
+$ git push -u origin main
+
+$ git pull //mescla remoto com o local
+```
+
+### Trabalhando com Branches - Criando, Mesclando, Deletando e Tratando Conflitos
+
+```sh
+//Branches apontam para um determinado commit
+// mesclar faz as branchs apontar para o mesmo commit
+
+$ git checkout -b teste //troca de branch
+$ git log /consultar commit
+
+echo "commit-3-branch-teste" > commit-3-branch-teste
+$ git add .
+$ git commit -m "commit-3"
+
+$ git checkout main //volta para a branch main
+
+$ git branch -v //mostra os commits de cada branch
+
+$ git merge teste //mescla a teste com a branch atual que é a main
+
+$ git branch //mostra as branchs
+$ git branch -d teste //exclui a branch teste
+
+------------------------------
+Conflitos de merge:
+------------------------------
+2 pessoas enviam gera conflito
+
+$ git log
+//alterar arquivo no local e alterar arquivo no remoto com commits
+
+$ git push origin main
+//rejeita porque remotamente contém trabalho que não possui localmente
+
+$ git pull //o arquivo diferente vai possuir os 2 conteúdos
+//decidir qual alteração quer no próprio arquivo e salvar
+
+$ git status //mostra arquivo alterado
+$ git add. //adiciona a alteração
+$ git commit -m "commit após o conflito"
+
+$ git log
+
+$ git push origin main //envia
+```
+
+### Comandos úteis
+
+```sh
+//git pull -> git fetch + git merge
+
+$ git log
+$ git fetch origin main
+$ git diff main origin/main //mostra diferença
+$ git merge origin/main
+
+git clone https://... --branch teste --single-branch  //clona outra branch ao invés da principal
+
+$ git stash //arquivo a modificação
+$ git stash list
+$ git checkout -b teste2 //nova brench sem a modificação
+$ git checkout teste //
+$ git stash list
+$ git stash pop //tras as alterações
+$ git stash apply // manter
+```
+
